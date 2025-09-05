@@ -102,7 +102,7 @@ async def handle_client(websocket):
                 print("Establishing connection to MCP server...")
                 server_params = StdioServerParameters(
                     command="python",
-                    args=["example2.py"]
+                    args=["calculator.py"]
                 )
         
                 async with stdio_client(server_params) as (read, write):

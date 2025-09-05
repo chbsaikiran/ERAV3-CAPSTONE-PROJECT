@@ -55,7 +55,7 @@ This repository contains a Python-based asynchronous WebSocket application desig
   - Produce summary answers to Gmail query results.
   - Extract expense data from summaries and replace placeholders with totals.
 
-### 5. `example2.py` — MCP (Math Computation Protocol) Server Client
+### 5. `calculator.py` — MCP (Math Computation Protocol) Server Client
 
 - Defines a set of math tools and resources as asynchronous MCP tools (e.g., add, subtract, power, factorial).
 - Used by the server to perform computations on extracted numerical data from email summaries.
@@ -105,7 +105,7 @@ pip install -r requirements.txt
 4. **Start the MCP Server Client (math tools):**
 
 ```bash
-python example2.py
+python calculator.py
 ```
 
 5. **Start the WebSocket Server:**
@@ -171,7 +171,7 @@ This system showcases a full chat-enabled Gmail email analysis application integ
 
 [1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/53d93f56-7bf2-4a18-84c9-09b4fbc3ec26/client.html)
 [2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/7454e721-6f61-4a82-8cf5-fdf02d7fbf11/client_bridge.py)
-[3](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/e89cceeb-9d52-4659-ae67-0c8ad231422d/example2.py)
+[3](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/e89cceeb-9d52-4659-ae67-0c8ad231422d/calculator.py)
 [4](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/254832f7-f526-4a47-b691-d540aed295dd/gemini_agent.py)
 [5](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/e75374ae-3a6c-4191-9994-8bb5fef4653d/requirements.txt)
 [6](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/29028422/aa075973-c971-4c31-afd0-aba441bed957/server.py)
