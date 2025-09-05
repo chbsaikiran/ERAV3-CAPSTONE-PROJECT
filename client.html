@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Interface</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #chat { border: 1px solid #ccc; height: 300px; padding: 10px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <h2>Chat</h2>
+  <div id="chat"></div>
+  <textarea id="message" placeholder="Type a message..." rows="3" style="width:98%;"></textarea>
+  <button onclick="sendMessage()">Send</button>
+  <button onclick="exitChat()">Exit</button>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8000"); // connects to Python client
+    const chat = document.getElementById("chat");
+
+    ws.onopen = () => appendMessage("Connected to chat.");
+    ws.onmessage = (e) => appendMessage("Server: " + e.data);
+    ws.onclose = () => appendMessage("Connection closed.");
+
+    function sendMessage() {
+      const msg = document.getElementById("message").value;
+      if (msg) {
+        ws.send(msg);
+        appendMessage("You: " + msg);
+        document.getElementById("message").value = "";
+      }
+    }
+
+    function exitChat() {
+      ws.send("exit");
+      ws.close();
+    }
+
+    function appendMessage(text) {
+      const p = document.createElement("p");
+      p.style.whiteSpace = "pre-wrap"; // preserve new lines
+      p.textContent = text;
+      chat.appendChild(p);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
