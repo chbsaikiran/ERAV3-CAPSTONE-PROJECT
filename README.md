@@ -141,13 +141,11 @@ python client_bridge.py
 Browser <--> client.html (WebSocket UI)
    ||
    \/
-Bridge WebSocket client (client_bridge.py, ws://localhost:8000)
+Bridge WebSocket client (client_bridge.py, ws://localhost:8000) (uses Gmail API)
    ||
    \/
-Server WebSocket (server.py, ws://localhost:9000)
-   ||
-   \/
-Gmail API + Google Gemini AI + MCP Tools
+Server WebSocket (server.py, ws://localhost:9000) (uses Google Gemini AI + MCP Tools)
+
 ```
 
 - Queries flow from the UI to the server via the bridge.
