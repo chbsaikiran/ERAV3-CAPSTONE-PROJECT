@@ -58,52 +58,55 @@ Today's date is {today} (Year={year}, Month={month}, Day={day}).
 Yesterday is {yesterday}.
 One week ago was {last_week}.
 Examples to identify main keywords
-if user asks "Zomato orders this year" main keyword is "Zomato"
+if user asks "Zomato orders this year" main keyword is "Zomato order"
+if user asks "how much did i spent on zomato" main keyword is "Zomato INR"
 if user asks "IRCTC last week" main keyword is "IRCTC"
-if user asks "where did I travel using Redbus in last one month" main keyword is "Redbus"
-if user asks "OTP from SBI yesterday" main keyword is "OTP" and SBI"
-if user asks "which books did I buy on amazon this year??" main keywords are "books" , "amazon"
-if user asks "when did I buy Atomic Habits by James Clear on Amazon" main keywords are "Atomic Habits", "James Clear" , "Amazon"
-if user asks "when did I buy iphone 13 on Croma this year??" main keywords are "iphone 13" "Croma"
-if user asks "when did I buy Samsung Mobile on Flipkart" main keywords are "Samsung" "Flipkart"
+if user asks "where did I travel using Redbus in last one month" main keyword is "Redbus booking"
+if user asks "OTP from SBI yesterday" main keyword is "OTP SBI"
+if user asks "which books did I buy on amazon this year??" main keywords are "books amazon"
+if user asks "when did I buy Atomic Habits by James Clear on Amazon" main keywords are "Atomic Habits James Clear Amazon"
+if user asks "when did I buy iphone 13 on Croma this year??" main keywords are "iphone 13 Croma"
+if user asks "when did I buy Samsung Mobile on Flipkart" main keywords are "Samsung Flipkart"
 So multiple main keywords can be there in the User Query search query and find all the main keywords and put them in quotes and return it as output query
 
 IMPORTANT RULES:
 1. Include the all days in date ranges
 2. Never skip any days in the range
-3. You have pick the keywords from the User Query and do spelling corrections, identify all the main keywords and put them in quotes and return it as output query
-4. Always use after: and before: for date ranges
+3. You have pick the keywords from the User Query and do spelling corrections, identify all the main keywords and use them in the search query, and use only singular form of the keyword in the search query, this is most important rule, if this rule is not followed then the search query will not be correct and the results will be wrong.
+4. Always use after: before: for date ranges
 5. only include INR currency transactions only, don't include any other currency transactions. This is most important rule
+6. when ever travel or bookings is there in the user query then include the keyword "booking" in the search query
+7. when spent is there is user query then include the keyword "INR" in the search query
 
 Examples:
 if user asks "Zomato orders this year" return:
-'"Zomato" INR after:{year}/01/01 and before:{today}'
+'Zomato order after:{year}/01/01 before:{today}'
 
 if user asks "IRCTC last week" return:
-'"IRCTC" INR after:{last_week} and before:{today}'
+'IRCTC after:{last_week} before:{today}'
 
 if user asks "where did I travel using Redbus in last one month" return:
-'"Redbus" INR booking after:{last_month} and before:{today}'
+'Redbus booking after:{last_month} before:{today}'
 
 if user asks "OTP from SBI yesterday" return:
-'"OTP" "SBI" after:{yesterday} and before:{today}'
+'OTP SBI after:{yesterday} before:{today}'
 
 example with two keywords in User Query "which books did I buy on amazon this year??" return:
-'"books" "amazon" after:{year}/01/01 and before:{today}'
+'book amazon after:{year}/01/01 before:{today}'
 
 For queries where the date is not mentioned search the mails for last 10 years i.e. if user asks "when did I buy Atomic Habits by James Clear on Amazon" return:
-'"Atomic Habits", "James Clear" "Amazon" after:{last_ten_years} and before:{today}'
+'Atomic Habit James Clear Amazon after:{last_ten_years} before:{today}'
 
 Below are examples of how to handle specific user queries:
 when did I buy iphone 13 on Croma this year?? return:
-'"iphone 13" "Croma" after:{year}/01/01 and before:{today}'
+'iphone 13 Croma after:{year}/01/01 before:{today}'
 
 How much did I pay for coursera subscription using axis bank in this year??: return:
-'"coursera" "axis bank" after:{year}/01/01 and before:{today}'
+'coursera axis bank after:{year}/01/01 before:{today}'
 
 For queries where the date is not mentioned search the mails for last 10 years
  i.e. if user asks "when did I buy Samsung Mobile on Flipkart" return:
-'"Samsung" "Flipkart" after:{last_ten_years} and before:{today}'
+'Samsung Flipkart after:{last_ten_years} before:{today}'
 
 User Query:
 {natural_question}
