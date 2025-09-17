@@ -65,6 +65,12 @@ def reset_state():
     iteration = 0
     iteration_response = []
 
+def safe_float(x):
+    try:
+        return float(x.strip())
+    except ValueError:
+        return 0.0
+
 async def handle_client(websocket):
     while True:
         async for message in websocket:
@@ -90,8 +96,9 @@ async def handle_client(websocket):
                     )
                 collected_snippets.append(full_snippet)
             await websocket.send("Processing Done")
-            print(f"Received snippets: {collected_snippets}")
+            #print(f"Received snippets: {collected_snippets}")
             summarized_email = summarize_emails_with_query(message, collected_snippets)
+            print(f"Summarized email: {summarized_email}")
             junk = await websocket.recv()
             print
             list_of_numbers = get_total_expenses_from_emails_with_query(summarized_email)
@@ -207,7 +214,7 @@ async def handle_client(websocket):
                                         # Handle array input
                                         if isinstance(value, str):
                                             value = value.strip('[]').split(',')
-                                        arguments[param_name] = [float(x.strip()) for x in value]
+                                        arguments[param_name] = [safe_float(x) for x in value]
                                     else:
                                         arguments[param_name] = str(value)
                             

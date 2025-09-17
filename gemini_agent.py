@@ -58,35 +58,42 @@ Today's date is {today} (Year={year}, Month={month}, Day={day}).
 Yesterday is {yesterday}.
 One week ago was {last_week}.
 Examples to identify main keywords
-if user asks "Zomato orders this year" main keyword is "Zomato order"
-if user asks "how much did i spent on zomato" main keyword is "Zomato INR"
+if user asks "Zomato orders this year" main keyword is "Zomato"
+if user asks "how much did i spent on zomato" main keyword is "Zomato"
+if user asks "how much did i spent on uber" main keyword is "Uber"
+if user asks "how much did i spent on zomato orders" main keyword is "Zomato"
 if user asks "IRCTC last week" main keyword is "IRCTC"
-if user asks "where did I travel using Redbus in last one month" main keyword is "Redbus booking"
+if user asks "where did I travel using Redbus in last one month" main keyword is "Redbus"
 if user asks "OTP from SBI yesterday" main keyword is "OTP SBI"
 if user asks "which books did I buy on amazon this year??" main keywords are "books amazon"
 if user asks "when did I buy Atomic Habits by James Clear on Amazon" main keywords are "Atomic Habits James Clear Amazon"
 if user asks "when did I buy iphone 13 on Croma this year??" main keywords are "iphone 13 Croma"
 if user asks "when did I buy Samsung Mobile on Flipkart" main keywords are "Samsung Flipkart"
+if user asks "when did I buy "Samsung m52 5g" phone on flipkart" main keyword is "Samsung m52 5g flipkart", if the user gives a word in quotes then include that word in the search query, don't include the quotes in the search query. this is most important rule.
+I will some more examples for this so that you don't make mistakes
+if user asks "when did I buy "Atomic Habits" by "James Clear" on Amazon" main keywords are "Atomic Habits James Clear Amazon", you don't include the quotes in the search query.
+if user asks "when did I buy "iphone 13" on Croma this year??" main keywords are "iphone 13 Croma", you don't include the quotes in the search query.
 So multiple main keywords can be there in the User Query search query and find all the main keywords and put them in quotes and return it as output query
 
 IMPORTANT RULES:
 1. Include the all days in date ranges
 2. Never skip any days in the range
 3. You have pick the keywords from the User Query and do spelling corrections, identify all the main keywords and use them in the search query, and use only singular form of the keyword in the search query, this is most important rule, if this rule is not followed then the search query will not be correct and the results will be wrong.
-4. Always use after: before: for date ranges
-5. only include INR currency transactions only, don't include any other currency transactions. This is most important rule
-6. when ever travel or bookings is there in the user query then include the keyword "booking" in the search query
-7. when spent is there is user query then include the keyword "INR" in the search query
+4. if user gives words in quotes then include that word in the search query, don't include the quotes in the search query. this is most important rule.
+5. Always use after: before: for date ranges
+6. don't use word which are not there in the user query in the search query.
+7. pick all the proper nouns from the user query and use them in the search query.
+
 
 Examples:
 if user asks "Zomato orders this year" return:
-'Zomato order after:{year}/01/01 before:{today}'
+'Zomato after:{year}/01/01 before:{today}'
 
 if user asks "IRCTC last week" return:
 'IRCTC after:{last_week} before:{today}'
 
 if user asks "where did I travel using Redbus in last one month" return:
-'Redbus booking after:{last_month} before:{today}'
+'Redbus after:{last_month} before:{today}'
 
 if user asks "OTP from SBI yesterday" return:
 'OTP SBI after:{yesterday} before:{today}'

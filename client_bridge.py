@@ -73,10 +73,16 @@ def is_promotional(subject, snippet):
     text = subject + " " + snippet
     return bool(PROMO_REGEX.search(text))
 
+def remove_quotes(text: str) -> str:
+    quotes = ['"', "'", "“", "”", "‘", "’", "`"]
+    for q in quotes:
+        text = text.replace(q, "")
+    return text
+
 async def bridge_handler(browser_ws):
     async with websockets.connect(SERVER_URI) as server_ws:
         async for msg in browser_ws:
-            max_results = 20  # Limit to check only 20 emails
+            max_results = 28  # Limit to check only 20 emails
             print(f"[BROWSER] {msg}")
             if msg.lower() == "exit":
                 await server_ws.send("exit")
@@ -87,6 +93,7 @@ async def bridge_handler(browser_ws):
 
             # wait for server response
             query = await server_ws.recv()
+            query = remove_quotes(query)
             print(f"[SERVER] {query}")
             
             service = authenticate_gmail()
@@ -152,11 +159,11 @@ async def bridge_handler(browser_ws):
                         print(junk)
                         #details = get_details_from_email_body(body, user_query)
     
-                        if total_checked >= max_results:
+                        if total_nonpromo >= max_results:
                             break
     
                     # Get next page if available
-                    if total_checked < max_results and next_page_token:
+                    if total_nonpromo < max_results and next_page_token:
                         results = service.users().messages().list(
                             userId="me", q=query, maxResults=1, pageToken=next_page_token
                         ).execute()
