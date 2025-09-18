@@ -67,7 +67,7 @@ def get_subject_and_snippet(message):
 
 def is_promotional(subject, snippet):
     PROMO_REGEX = re.compile(
-    r"(offer|sale|discount|deal|limited time|hurry|coupon|save|cashback|subscribe|exclusive|get \d+% off)",
+    r"(offer|sale|deal|limited time|hurry|exclusive|off|cheap\d+% off)",
     re.IGNORECASE
 )
     text = subject + " " + snippet
